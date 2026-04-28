@@ -1,13 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
-
-.prose {
-  --prose-headings: rgb(15 23 42);
-  --prose-bold: rgb(15 23 42);
-  --prose-links: rgb(59 130 246);
 }
