@@ -244,16 +244,14 @@ function SectionConfig() {
       
       <p className="text-slate-700 text-sm">Same <code className="bg-slate-100 px-1">site.config.ts</code> from v3, plus new company identity:</p>
 
-      <div className="bg-slate-900 text-slate-100 rounded p-4 font-mono text-xs space-y-2">
-        <div>export const siteConfig = {'{'}// all v3 fields</div>
-        <div className="ml-4">companyName, subtitle, logoPath, heroImagePath,</div>
-        <div className="ml-4">email, city, pillars, theme, sections, values,</div>
-        <div className="ml-4">team, testimonials, // ... etc</div>
-        <div>{'}') as const;</div>
-        <div className="mt-2"></div>
-        <div>// v4.0 addition:</div>
-        <div>export const COMPANY_ID = process.env.NEXT_PUBLIC_COMPANY_ID ?? "";</div>
-      </div>
+      <pre className="bg-slate-900 text-slate-100 rounded p-4 font-mono text-xs overflow-auto">{`export const siteConfig = { // all v3 fields
+  companyName, subtitle, logoPath, heroImagePath,
+  email, city, pillars, theme, sections, values,
+  team, testimonials, // ... etc
+}) as const;
+
+// v4.0 addition:
+export const COMPANY_ID = process.env.NEXT_PUBLIC_COMPANY_ID ?? "";`}</pre>
 
       <div className="bg-blue-50 border border-blue-200 rounded p-4 text-sm">
         <p className="font-bold text-blue-900">NEXT_PUBLIC_COMPANY_ID</p>
