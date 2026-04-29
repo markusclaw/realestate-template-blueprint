@@ -3,18 +3,18 @@
 import { useState } from 'react';
 
 const sections = [
-  { id: 'overview', title: '1. What Is Propframe', label: 'Overview' },
-  { id: 'architecture', title: '2. Architecture Overview', label: 'Architecture' },
-  { id: 'repos', title: '3. Repository & Domain Setup', label: 'Repos & Domains' },
-  { id: 'sections', title: '4. The Section Composition System', label: 'Sections' },
-  { id: 'config', title: '5. site.config.ts Reference', label: 'Config' },
-  { id: 'norma', title: '6. Example: Norma Martinez', label: 'Norma Config' },
-  { id: 'assets', title: '7. Asset Folder Structure', label: 'Assets' },
-  { id: 'env', title: '8. Environment Variables', label: 'Env Vars' },
-  { id: 'deploy', title: '9. Cloudflare Pages Steps', label: 'Deployment' },
-  { id: 'onboard', title: '10. New Client Onboarding', label: 'Onboarding' },
-  { id: 'validation', title: '11. Validation Commands', label: 'Validation' },
-  { id: 'done', title: '12. Definition of Done', label: 'Done' },
+  { id: 'overview', title: '1. Overview', label: 'Overview' },
+  { id: 'multitenant', title: '2. Multi-Tenant Architecture', label: 'Multi-Tenant' },
+  { id: 'database', title: '3. Database Schema', label: 'Database' },
+  { id: 'auth', title: '4. Manager Auth Flow v4.0', label: 'Auth' },
+  { id: 'config', title: '5. Client Configuration', label: 'Config' },
+  { id: 'sections', title: '6. Section Composition', label: 'Sections' },
+  { id: 'files', title: '7. Key Files', label: 'Files' },
+  { id: 'bugs', title: '8. Critical Bug Fixes', label: 'Bugs' },
+  { id: 'deploy', title: '9. Cloudflare Deployment', label: 'Deploy' },
+  { id: 'onboard', title: '10. New Client Onboarding', label: 'Onboard' },
+  { id: 'validation', title: '11. Validation Checklist', label: 'Validate' },
+  { id: 'phase2', title: '12. Phase 2 Roadmap', label: 'Phase 2' },
 ];
 
 export default function Blueprint() {
@@ -25,8 +25,8 @@ export default function Blueprint() {
       <aside className="w-56 bg-slate-900 text-white overflow-y-auto border-r border-slate-800">
         <div className="sticky top-0 bg-slate-950 px-6 py-6 border-b border-slate-800">
           <h1 className="text-sm font-bold tracking-tight">Propframe</h1>
-          <p className="text-xs text-slate-400 mt-1">v3.0 — Live</p>
-          <p className="text-xs text-green-400 mt-2 font-bold">✓ Complete</p>
+          <p className="text-xs text-red-400 mt-1 font-bold">v4.0 — Multi-Tenant</p>
+          <p className="text-xs text-yellow-400 mt-2">⚠ In Progress</p>
         </div>
 
         <nav className="p-4 space-y-1">
@@ -46,24 +46,24 @@ export default function Blueprint() {
         </nav>
 
         <div className="border-t border-slate-800 p-4 mt-8">
-          <p className="text-xs text-slate-500">Config-driven real estate template. Proprietary — not indexed.</p>
+          <p className="text-xs text-slate-400">One database, many clients. RLS-enforced isolation.</p>
         </div>
       </aside>
 
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-4xl mx-auto px-8 py-12">
           {activeSection === 'overview' && <SectionOverview />}
-          {activeSection === 'architecture' && <SectionArchitecture />}
-          {activeSection === 'repos' && <SectionRepos />}
-          {activeSection === 'sections' && <SectionSections />}
+          {activeSection === 'multitenant' && <SectionMultiTenant />}
+          {activeSection === 'database' && <SectionDatabase />}
+          {activeSection === 'auth' && <SectionAuth />}
           {activeSection === 'config' && <SectionConfig />}
-          {activeSection === 'norma' && <SectionNorma />}
-          {activeSection === 'assets' && <SectionAssets />}
-          {activeSection === 'env' && <SectionEnv />}
+          {activeSection === 'sections' && <SectionSections />}
+          {activeSection === 'files' && <SectionFiles />}
+          {activeSection === 'bugs' && <SectionBugs />}
           {activeSection === 'deploy' && <SectionDeploy />}
           {activeSection === 'onboard' && <SectionOnboard />}
           {activeSection === 'validation' && <SectionValidation />}
-          {activeSection === 'done' && <SectionDone />}
+          {activeSection === 'phase2' && <SectionPhase2 />}
         </div>
       </main>
     </div>
@@ -74,154 +74,164 @@ function SectionOverview() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-4xl font-bold mb-2">Propframe</h1>
-        <p className="text-lg text-slate-600">Config-Driven Real Estate Website Template</p>
-        <p className="text-sm text-green-600 font-bold mt-2">✓ v3.0 — Implementation Complete</p>
+        <h1 className="text-4xl font-bold mb-2">Propframe v4.0</h1>
+        <p className="text-lg text-slate-600">Multi-Tenant Real Estate Platform</p>
+        <p className="text-sm text-yellow-600 font-bold mt-2">⚠ Architecture shift in progress</p>
       </div>
 
-      <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-        <p className="font-bold text-green-900 mb-3">Live Deployments</p>
-        <div className="space-y-2 text-sm text-green-900 font-mono">
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+        <p className="font-bold text-yellow-900 mb-2">Key Shift from v3.0</p>
+        <p className="text-sm text-yellow-900 mb-3">
+          One shared Supabase database for all clients, with Row Level Security (RLS) enforcing company isolation.
+        </p>
+        <ul className="text-sm text-yellow-900 space-y-1 list-disc list-inside ml-2">
+          <li>Single database → easier ops, one backup, one schema</li>
+          <li>Per-client Cloudflare deployment → separate frontend per client</li>
+          <li>Company isolation via RLS → no data leakage</li>
+          <li>Critical bugs identified → send-notice-email, send-portal-invite need fixes</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="text-2xl font-bold mb-3">Architecture at a Glance</h2>
+        <table className="text-sm w-full">
+          <tbody className="space-y-2">
+            <tr><td className="font-bold">Database:</td><td>1 shared Supabase project, all companies</td></tr>
+            <tr><td className="font-bold">Frontend:</td><td>1 Cloudflare Pages per client</td></tr>
+            <tr><td className="font-bold">Isolation:</td><td>RLS policies on every table</td></tr>
+            <tr><td className="font-bold">Identity:</td><td>NEXT_PUBLIC_COMPANY_ID (env var)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h2 className="text-2xl font-bold mb-3">Live Deployments</h2>
+        <div className="space-y-2 text-sm">
           <div><span className="font-bold">Reyes Rebollar:</span> reyesrebollar.com</div>
           <div><span className="font-bold">Norma Martinez:</span> propertiesbynorma.com</div>
         </div>
       </div>
+    </div>
+  );
+}
 
+function SectionMultiTenant() {
+  return (
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Multi-Tenant Architecture</h1>
+      
       <div>
-        <h2 className="text-2xl font-bold mb-4">What Is Propframe</h2>
-        <p className="text-slate-700 mb-4">
-          A config-driven real estate website template where each client shares 100% of the same codebase but has a completely independent public-facing site.
+        <h2 className="text-xl font-bold mb-3">Core Principle</h2>
+        <p className="text-slate-700 text-sm mb-4">
+          Every company-owned table has a <code className="bg-slate-100 px-1">company_id</code> column. Row Level Security (RLS) policies enforce that users only see rows belonging to companies they are members of.
         </p>
-        <p className="text-slate-700"><strong>Stack:</strong> Next.js 15 · Tailwind CSS · Radix UI · Supabase · Cloudflare Pages</p>
+        <p className="text-slate-700 text-sm">
+          The frontend reads its company identity from <code className="bg-slate-100 px-1">NEXT_PUBLIC_COMPANY_ID</code> environment variable, set in each Cloudflare Pages deployment.
+        </p>
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold mb-4">The Promise</h2>
-        <p className="text-slate-700 mb-3">Onboarding a new client requires changing only:</p>
-        <ul className="list-disc list-inside space-y-2 ml-4 text-slate-700">
-          <li><code className="bg-slate-100 px-2 py-1 rounded">site.config.ts</code></li>
-          <li><code className="bg-slate-100 px-2 py-1 rounded">public/brand/</code></li>
-          <li><code className="bg-slate-100 px-2 py-1 rounded">.env.local</code></li>
-        </ul>
+        <h2 className="text-xl font-bold mb-3">Platform Tables (New)</h2>
+        <div className="bg-slate-100 rounded p-4 font-mono text-xs space-y-3">
+          <div>
+            <div className="font-bold">companies</div>
+            <div className="text-slate-600 ml-2">id, name, slug, status, created_at, updated_at</div>
+          </div>
+          <div>
+            <div className="font-bold">company_members</div>
+            <div className="text-slate-600 ml-2">id, user_id, company_id, role (owner|admin|manager|viewer),</div>
+            <div className="text-slate-600 ml-2">status (active|invited|suspended), created_at, updated_at</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="text-xl font-bold mb-3">RLS Helper Functions</h2>
+        <div className="bg-slate-900 text-slate-100 rounded p-4 font-mono text-xs space-y-2">
+          <div>user_company_ids() — returns UUIDs of user's companies</div>
+          <div>user_has_company_role() — checks role + status</div>
+          <div>user_tenant_ids() — (Phase 2) for tenant portal auth</div>
+        </div>
+      </div>
+
+      <div className="bg-blue-50 border border-blue-200 rounded p-4 text-sm">
+        <p className="font-bold text-blue-900 mb-2">Migration File</p>
+        <p className="text-blue-900 text-xs font-mono">supabase/migrations/20260428000000_multitenant_foundation.sql</p>
+        <p className="text-xs text-blue-900 mt-2">10-step migration covering table creation, RLS policies, backfill, and helper functions.</p>
       </div>
     </div>
   );
 }
 
-function SectionArchitecture() {
+function SectionDatabase() {
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Architecture Overview</h1>
-      
-      <div className="space-y-4">
-        <div>
-          <h3 className="font-bold mb-2">What Changes Per Client</h3>
-          <ul className="space-y-1 text-sm text-slate-700 ml-4">
-            <li>• <code className="bg-slate-100 px-1">site.config.ts</code> — all identity, copy, theme, sections</li>
-            <li>• <code className="bg-slate-100 px-1">public/brand/</code> — logo, images, favicon</li>
-            <li>• <code className="bg-slate-100 px-1">.env.local</code> — Supabase credentials</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-bold mb-2">What Stays Shared</h3>
-          <ul className="space-y-1 text-sm text-slate-700 ml-4">
-            <li>• <code className="bg-slate-100 px-1">components/</code> — all UI + section library</li>
-            <li>• <code className="bg-slate-100 px-1">app/</code> — pages + portals</li>
-            <li>• <code className="bg-slate-100 px-1">lib/</code> — Supabase client</li>
-            <li>• <code className="bg-slate-100 px-1">app/globals.css</code> — structural styles</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-bold mb-2">Key Decisions</h3>
-          <div className="space-y-3 text-sm">
-            <div className="border-l-4 border-purple-500 pl-4">
-              <p className="font-bold">ThemeInjector</p>
-              <p className="text-slate-600">Injects brand colors from config into &lt;head&gt;</p>
-            </div>
-            <div className="border-l-4 border-blue-500 pl-4">
-              <p className="font-bold">Section Composition</p>
-              <p className="text-slate-600">Homepage dynamically renders sections from config</p>
-            </div>
-            <div className="border-l-4 border-green-500 pl-4">
-              <p className="font-bold">Supabase Isolation</p>
-              <p className="text-slate-600">Each client has separate project</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SectionRepos() {
-  return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Repository & Domain Setup</h1>
+      <h1 className="text-3xl font-bold">Database Schema</h1>
       
       <div>
-        <h3 className="font-bold mb-2">GitHub</h3>
-        <div className="bg-slate-100 rounded p-3 font-mono text-sm space-y-1">
-          <div>drkmattr/propframe</div>
-          <div>drkmattr/normamartinez</div>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-bold mb-2">Cloudflare Pages — Dual Domains</h3>
-        <div className="bg-slate-100 rounded p-3 font-mono text-sm space-y-1">
-          <div>reyesrebollar.propframe.drkm.io → reyesrebollar.com</div>
-          <div>norma.propframe.drkm.io → propertiesbynorma.com</div>
-        </div>
-        <p className="text-xs text-slate-600 mt-2">Each client reachable on both internal and custom domains</p>
-      </div>
-
-      <div className="bg-blue-50 border border-blue-200 rounded p-4">
-        <p className="text-sm font-bold text-blue-900">Separate repos per client now. Monorepo at 4+ clients.</p>
-      </div>
-    </div>
-  );
-}
-
-function SectionSections() {
-  return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Section Composition System</h1>
-      
-      <p className="text-slate-700 text-sm">Homepage is a dynamic renderer. Clients choose sections via config.</p>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-slate-100 p-3 rounded text-sm">
-          <p className="font-bold">Reyes Rebollar</p>
-          <div className="font-mono text-xs mt-2 space-y-1">
-            <div>hero</div>
-            <div>opening-statement</div>
-            <div>origin-story</div>
-            <div>holdings</div>
-            <div>closing-quote</div>
-          </div>
-        </div>
-        <div className="bg-blue-50 p-3 rounded text-sm">
-          <p className="font-bold">Norma Martinez</p>
-          <div className="font-mono text-xs mt-2 space-y-1">
-            <div>hero</div>
-            <div>opening-statement</div>
-            <div>team</div>
-            <div>testimonials</div>
-            <div>holdings</div>
-            <div>contact-cta</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="text-sm space-y-2">
-        <p className="font-bold">Available sections:</p>
-        <div className="grid grid-cols-4 gap-2">
-          {['hero', 'opening-statement', 'origin-story', 'holdings', 'team', 'testimonials', 'contact-cta', 'closing-quote'].map(s => (
-            <div key={s} className="bg-slate-100 px-2 py-1 rounded text-xs">{s}</div>
+        <h2 className="text-xl font-bold mb-3">All Company-Scoped Tables</h2>
+        <p className="text-slate-700 text-sm mb-3">Each has a <code className="bg-slate-100 px-1">company_id</code> column enforced by RLS:</p>
+        <div className="grid grid-cols-3 gap-2">
+          {['properties', 'units', 'tenants', 'leases', 'invoices', 'payments', 'maintenance_requests', 'notices', 'documents'].map(table => (
+            <div key={table} className="bg-slate-100 px-3 py-2 rounded text-sm font-mono">
+              {table}
+            </div>
           ))}
         </div>
+      </div>
+
+      <div>
+        <h2 className="text-xl font-bold mb-3">Migration Steps (10)</h2>
+        <ol className="list-decimal list-inside space-y-2 text-sm text-slate-700">
+          <li>Create <code className="bg-slate-100 px-1">companies</code> table</li>
+          <li>Insert Reyes Rebollar seed row</li>
+          <li>Create <code className="bg-slate-100 px-1">company_members</code> table</li>
+          <li>Add nullable <code className="bg-slate-100 px-1">company_id</code> to all 9 domain tables</li>
+          <li>Backfill <code className="bg-slate-100 px-1">company_id</code> for existing rows</li>
+          <li>Set <code className="bg-slate-100 px-1">company_id</code> NOT NULL</li>
+          <li>Add indexes on <code className="bg-slate-100 px-1">company_id</code></li>
+          <li>Create RLS helper functions</li>
+          <li>Enable RLS + CRUD policies on all tables</li>
+          <li>Link existing manager account to company_members</li>
+        </ol>
+      </div>
+    </div>
+  );
+}
+
+function SectionAuth() {
+  return (
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Manager Auth Flow v4.0</h1>
+      
+      <p className="text-slate-700 text-sm mb-4">
+        Old email-domain check (<code className="bg-slate-100 px-1">@reyesrebollar.com</code>) replaced by <code className="bg-slate-100 px-1">company_members</code> table lookup. Company-agnostic and enforced at app + RLS layers.
+      </p>
+
+      <div>
+        <h2 className="text-xl font-bold mb-3">Sign-In Flow</h2>
+        <ol className="list-decimal list-inside space-y-2 text-sm text-slate-700">
+          <li>User signs in with Supabase Auth (email + password)</li>
+          <li>App queries <code className="bg-slate-100 px-1">company_members</code> where user + company match</li>
+          <li>If no active record → sign out + error</li>
+          <li>If active → redirect to <code className="bg-slate-100 px-1">/manager/dashboard</code></li>
+        </ol>
+      </div>
+
+      <div>
+        <h2 className="text-xl font-bold mb-3">Account Setup</h2>
+        <ol className="list-decimal list-inside space-y-2 text-sm text-slate-700">
+          <li>User creates auth via "Set up account" form</li>
+          <li>Auth user created in Supabase</li>
+          <li>Administrator INSERTs user into <code className="bg-slate-100 px-1">company_members</code></li>
+          <li>User can then sign in normally</li>
+        </ol>
+      </div>
+
+      <div className="bg-blue-50 border border-blue-200 rounded p-4 text-sm">
+        <p className="font-bold text-blue-900">Shared Auth Hook</p>
+        <p className="text-blue-900 text-xs font-mono">lib/useCompanyAuth.ts</p>
+        <p className="text-xs text-blue-900 mt-2">Use in any manager page to enforce session + company_members check.</p>
       </div>
     </div>
   );
@@ -230,76 +240,90 @@ function SectionSections() {
 function SectionConfig() {
   return (
     <div className="space-y-4">
-      <h1 className="text-3xl font-bold mb-4">site.config.ts</h1>
-      <p className="text-slate-700 text-sm">Entire client identity, copy, theme, sections in one file.</p>
-      <div className="bg-slate-900 text-slate-100 rounded p-4 font-mono text-xs overflow-auto max-h-96">
-        <pre>{`companyName
-subtitle
-logoPath, heroImagePath
-email, city
-pillars (array)
-heroDescription
-openingStatement
-originSectionLabel, heading, paragraphs
-values (array)
-team (array)
-testimonials (array)
-contactCTA
-sections (array — controls homepage)
-metaTitle, metaDescription
-theme (OKLCH colors)
-  background, foreground, primary
-  secondary, muted, accent, border
-  radixAccent, radixGray`}</pre>
+      <h1 className="text-3xl font-bold">Client Configuration</h1>
+      
+      <p className="text-slate-700 text-sm">Same <code className="bg-slate-100 px-1">site.config.ts</code> from v3, plus new company identity:</p>
+
+      <div className="bg-slate-900 text-slate-100 rounded p-4 font-mono text-xs space-y-2">
+        <div>export const siteConfig = {'{'}// all v3 fields</div>
+        <div className="ml-4">companyName, subtitle, logoPath, heroImagePath,</div>
+        <div className="ml-4">email, city, pillars, theme, sections, values,</div>
+        <div className="ml-4">team, testimonials, // ... etc</div>
+        <div>{'}') as const;</div>
+        <div className="mt-2"></div>
+        <div>// v4.0 addition:</div>
+        <div>export const COMPANY_ID = process.env.NEXT_PUBLIC_COMPANY_ID ?? "";</div>
+      </div>
+
+      <div className="bg-blue-50 border border-blue-200 rounded p-4 text-sm">
+        <p className="font-bold text-blue-900">NEXT_PUBLIC_COMPANY_ID</p>
+        <p className="text-xs text-blue-900">Set in Cloudflare Pages environment variables. UUID of the company row in Supabase.</p>
       </div>
     </div>
   );
 }
 
-function SectionNorma() {
+function SectionSections() {
   return (
     <div className="space-y-4">
-      <h1 className="text-3xl font-bold mb-4">Example: Norma Martinez</h1>
-      <p className="text-sm text-green-600 font-bold">Live: propertiesbynorma.com</p>
-      <div className="bg-blue-50 border border-blue-200 rounded p-4 text-sm mt-4">
-        <p className="font-bold mb-2">Key differences from Reyes:</p>
-        <ul className="space-y-1 text-xs ml-4">
-          <li>• Theme: Blue palette (vs earth tones)</li>
-          <li>• Sections: includes team + testimonials</li>
-          <li>• Copy: "Licensed Agent" positioning (vs holding company)</li>
-          <li>• Contact: agent booking CTA</li>
-        </ul>
+      <h1 className="text-3xl font-bold">Section Composition (unchanged)</h1>
+      
+      <div className="grid grid-cols-2 gap-3 text-sm">
+        {['hero', 'opening-statement', 'origin-story', 'holdings', 'team', 'testimonials', 'contact-cta', 'closing-quote'].map(s => (
+          <div key={s} className="bg-slate-100 px-3 py-2 rounded text-xs font-mono">{s}</div>
+        ))}
+      </div>
+
+      <p className="text-xs text-slate-600 mt-4">Clients control homepage via <code className="bg-slate-100 px-1">siteConfig.sections</code> array.</p>
+    </div>
+  );
+}
+
+function SectionFiles() {
+  return (
+    <div className="space-y-4">
+      <h1 className="text-3xl font-bold">Key Files Structure</h1>
+      
+      <div className="bg-slate-100 rounded p-4 font-mono text-xs space-y-1">
+        <div>site.config.ts — client identity + COMPANY_ID</div>
+        <div>lib/supabase.ts — Supabase client + types (with company_id)</div>
+        <div>lib/useCompanyAuth.ts — manager auth hook (NEW)</div>
+        <div>components/ThemeInjector.tsx — unchanged</div>
+        <div>components/sections/ — unchanged</div>
+        <div>app/manager/login/page.tsx — uses company_members lookup</div>
+        <div>app/manager/dashboard/page.tsx — auth guard + COMPANY_ID filter</div>
+        <div>supabase/migrations/</div>
+        <div className="ml-4">20260428000000_multitenant_foundation.sql</div>
       </div>
     </div>
   );
 }
 
-function SectionAssets() {
+function SectionBugs() {
   return (
-    <div className="space-y-4">
-      <h1 className="text-3xl font-bold mb-4">Asset Folder Structure</h1>
-      <div className="bg-slate-100 rounded p-3 font-mono text-sm space-y-1">
-        <div>public/brand/</div>
-        <div className="ml-4">logo.png (36×36px)</div>
-        <div className="ml-4">hero.jpg (landscape)</div>
-        <div className="ml-4">og-image.png (1200×630px)</div>
-        <div className="ml-4">favicon.ico</div>
-        <div className="ml-4">team/ (agent photos)</div>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Critical Bug Fixes Required</h1>
+      
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+        <h2 className="font-bold text-red-900 mb-3">send-notice-email — CRITICAL</h2>
+        <p className="text-sm text-red-900 mb-3">
+          When <code className="bg-white px-1">sent_to_type === "all"</code>, queries all tenants with NO company filter.
+        </p>
+        <p className="text-sm text-red-900 font-bold">Risk: Sends emails to tenants across all companies</p>
+        <p className="text-sm text-red-900 mt-3">
+          <strong>Fix:</strong> Add <code className="bg-white px-1">.eq("company_id", company_id)</code> to the "all tenants" query. Pass <code className="bg-white px-1">company_id</code> in request body.
+        </p>
       </div>
-    </div>
-  );
-}
 
-function SectionEnv() {
-  return (
-    <div className="space-y-4">
-      <h1 className="text-3xl font-bold mb-4">Environment Variables</h1>
-      <div className="bg-slate-100 rounded p-3 font-mono text-sm space-y-1 mb-4">
-        <div>NEXT_PUBLIC_SUPABASE_URL</div>
-        <div>NEXT_PUBLIC_SUPABASE_ANON_KEY</div>
-        <div>SUPABASE_SERVICE_ROLE_KEY</div>
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+        <h2 className="font-bold text-yellow-900 mb-3">send-portal-invite — Pending</h2>
+        <p className="text-sm text-yellow-900 mb-3">
+          Hardcodes <code className="bg-white px-1">reyesrebollar.com</code> in redirect URL and branding colors.
+        </p>
+        <p className="text-sm text-yellow-900">
+          <strong>Fix:</strong> Receive redirect URL and branding config from calling client. Use <code className="bg-white px-1">siteConfig.siteUrl</code>.
+        </p>
       </div>
-      <p className="text-xs text-slate-600">Never commit .env.local. Each client has separate Supabase project.</p>
     </div>
   );
 }
@@ -307,16 +331,33 @@ function SectionEnv() {
 function SectionDeploy() {
   return (
     <div className="space-y-4">
-      <h1 className="text-3xl font-bold mb-4">Cloudflare Pages Deployment</h1>
-      <ol className="list-decimal list-inside space-y-2 text-sm text-slate-700">
-        <li>Push repo to GitHub</li>
-        <li>Create Pages project, connect repo</li>
-        <li>Build: <code className="bg-slate-100 px-1">npm run build</code></li>
-        <li>Output: <code className="bg-slate-100 px-1">.next</code></li>
-        <li>Add env vars from .env.local</li>
-        <li>Add custom domains (internal + public)</li>
-        <li>Run asset setup commands</li>
-      </ol>
+      <h1 className="text-3xl font-bold">Cloudflare Pages Deployment</h1>
+      
+      <div>
+        <h2 className="text-xl font-bold mb-3">Environment Variables</h2>
+        <div className="bg-slate-100 rounded p-3 font-mono text-xs space-y-1">
+          <div>NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co</div>
+          <div>NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...</div>
+          <div className="text-green-700 font-bold">NEXT_PUBLIC_COMPANY_ID=&lt;UUID&gt; ← NEW</div>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="text-xl font-bold mb-3 mt-4">Build Settings</h2>
+        <ul className="text-sm text-slate-700 space-y-1 list-disc list-inside">
+          <li>Build: <code className="bg-slate-100 px-1">npm run build</code></li>
+          <li>Output: <code className="bg-slate-100 px-1">.next</code></li>
+          <li>Node: 20</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="text-xl font-bold mb-3 mt-4">Custom Domains</h2>
+        <ul className="text-sm text-slate-700 space-y-1 list-disc list-inside ml-2">
+          <li>Internal: <code className="bg-slate-100 px-1">reyesrebollar.propframe.drkm.io</code></li>
+          <li>Public: <code className="bg-slate-100 px-1">reyesrebollar.com</code></li>
+        </ul>
+      </div>
     </div>
   );
 }
@@ -324,25 +365,26 @@ function SectionDeploy() {
 function SectionOnboard() {
   return (
     <div className="space-y-4">
-      <h1 className="text-3xl font-bold mb-4">Client Onboarding Checklist</h1>
-      <div className="space-y-2 text-sm">
-        {[
-          'Clone propframe repo',
-          'Fill in site.config.ts',
-          'Add public/brand/ assets',
-          'Create new Supabase project',
-          'Create .env.local',
-          'Create Cloudflare Pages project',
-          'Add both custom domains',
-          'Verify: no hardcoded client names',
-          'Verify: npm run build passes',
-        ].map((item) => (
-          <div key={item} className="flex items-start">
-            <span className="mr-3">☐</span>
-            <span>{item}</span>
+      <h1 className="text-3xl font-bold">New Client Onboarding v4.0</h1>
+      
+      <ol className="list-decimal list-inside space-y-3 text-sm text-slate-700">
+        <li>Fork/duplicate the Reyes Rebollar repo</li>
+        <li>Edit <code className="bg-slate-100 px-1">site.config.ts</code> with client identity</li>
+        <li>Swap brand assets into <code className="bg-slate-100 px-1">public/brand/</code></li>
+        <li><span className="font-bold">Create company row:</span>
+          <div className="bg-slate-900 text-slate-100 rounded p-2 font-mono text-xs mt-1">
+            INSERT INTO companies (name, slug) VALUES (...) RETURNING id;
           </div>
-        ))}
-      </div>
+        </li>
+        <li><span className="font-bold">Set NEXT_PUBLIC_COMPANY_ID</span> in Cloudflare Pages</li>
+        <li><span className="font-bold">Add manager to company_members:</span>
+          <div className="bg-slate-900 text-slate-100 rounded p-2 font-mono text-xs mt-1">
+            INSERT INTO company_members (...) VALUES (...);
+          </div>
+        </li>
+        <li>Deploy to Cloudflare Pages</li>
+        <li>Set custom domains (internal + public)</li>
+      </ol>
     </div>
   );
 }
@@ -350,48 +392,71 @@ function SectionOnboard() {
 function SectionValidation() {
   return (
     <div className="space-y-4">
-      <h1 className="text-3xl font-bold mb-4">Validation Commands</h1>
+      <h1 className="text-3xl font-bold">Validation Checklist</h1>
+      
       <div className="space-y-3">
-        <div>
-          <p className="font-bold text-sm mb-1">No hardcoded client strings</p>
-          <div className="bg-slate-900 text-slate-100 rounded p-2 font-mono text-xs">grep -R "CompanyName" app components</div>
+        <div className="flex items-start gap-2">
+          <span>☐</span>
+          <span className="text-sm">No hardcoded client names in <code className="bg-slate-100 px-1">app/</code>, <code className="bg-slate-100 px-1">components/</code>, <code className="bg-slate-100 px-1">lib/</code></span>
         </div>
-        <div>
-          <p className="font-bold text-sm mb-1">Build passes</p>
-          <div className="bg-slate-900 text-slate-100 rounded p-2 font-mono text-xs">npm run build</div>
+        <div className="flex items-start gap-2">
+          <span>☐</span>
+          <span className="text-sm"><code className="bg-slate-100 px-1">NEXT_PUBLIC_COMPANY_ID</code> is set</span>
         </div>
-        <div>
-          <p className="font-bold text-sm mb-1">Portal login works</p>
-          <p className="text-xs text-slate-600">Test tenant + manager access</p>
+        <div className="flex items-start gap-2">
+          <span>☐</span>
+          <span className="text-sm"><code className="bg-slate-100 px-1">npm run build</code> passes</span>
         </div>
-        <div>
-          <p className="font-bold text-sm mb-1">Data isolation</p>
-          <p className="text-xs text-slate-600">Verify Norma data ≠ Reyes data</p>
+        <div className="flex items-start gap-2">
+          <span>☐</span>
+          <span className="text-sm">Manager login works → company_members check passes</span>
+        </div>
+        <div className="flex items-start gap-2">
+          <span>☐</span>
+          <span className="text-sm">Data isolation verified → no cross-company leakage</span>
         </div>
       </div>
     </div>
   );
 }
 
-function SectionDone() {
+function SectionPhase2() {
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Definition of Done</h1>
+      <h1 className="text-3xl font-bold">Phase 2 Roadmap</h1>
       
-      <ol className="space-y-2 list-decimal list-inside text-sm text-slate-700">
-        <li>Only site.config.ts, public/brand/, and .env.local were changed</li>
-        <li>No component or page files modified for client content</li>
-        <li>Grep checks return zero hardcoded client names</li>
-        <li>npm run build passes with zero errors</li>
-        <li>Public site renders with correct branding and sections</li>
-        <li>Tenant + manager portals are functional</li>
-        <li>Supabase data is isolated from other clients</li>
-        <li>Both custom domains resolve on Cloudflare</li>
-      </ol>
+      <div className="space-y-4">
+        <div className="border-l-4 border-blue-500 pl-4">
+          <p className="font-bold">tenant_users table</p>
+          <p className="text-sm text-slate-600">Link portal tenants to auth.users (magic-link auth)</p>
+        </div>
 
-      <div className="bg-green-50 border border-green-200 rounded p-6 mt-8">
-        <p className="font-bold text-green-900">Status: Complete ✓</p>
-        <p className="text-sm text-green-900 mt-2">Both Reyes Rebollar and Norma Martinez are live and using the Propframe template.</p>
+        <div className="border-l-4 border-blue-500 pl-4">
+          <p className="font-bold">Admin dashboard</p>
+          <p className="text-sm text-slate-600">propframe.drkm.io — manage all companies from one place</p>
+        </div>
+
+        <div className="border-l-4 border-blue-500 pl-4">
+          <p className="font-bold">Full SaaS routing</p>
+          <p className="text-sm text-slate-600">[slug].propframe.drkm.io → shared app with dynamic config</p>
+        </div>
+
+        <div className="border-l-4 border-blue-500 pl-4">
+          <p className="font-bold">Stripe billing</p>
+          <p className="text-sm text-slate-600">Per-company usage tracking and invoicing</p>
+        </div>
+
+        <div className="border-l-4 border-blue-500 pl-4">
+          <p className="font-bold">Edge Function updates</p>
+          <p className="text-sm text-slate-600">Make send-notice-email and send-portal-invite company-aware</p>
+        </div>
+      </div>
+
+      <div className="bg-purple-50 border border-purple-200 rounded-lg p-6 mt-6">
+        <p className="font-bold text-purple-900">Vision</p>
+        <p className="text-sm text-purple-900 mt-2">
+          A complete SaaS platform where any real estate professional can sign up, branded template deployed automatically, and start managing properties immediately.
+        </p>
       </div>
     </div>
   );
